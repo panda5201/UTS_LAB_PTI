@@ -30,6 +30,13 @@
             const name = document.getElementById('name').value;
             localStorage.setItem('userName', name); 
             window.location.href = 'main.html'; 
+
+            if (!localStorage.getItem('balance')) {
+                localStorage.setItem('balance', '0');
+            }   
+            if (!localStorage.getItem('transactionHistory')) {
+                localStorage.setItem('transactionHistory', '[]');
+            }
         }
     </script>
 </body>

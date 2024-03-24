@@ -121,3 +121,17 @@ background-color: white;
     font-size: 12px; 
     }
     }
+    
+    @media (max-width: 576px) {
+        .transaction-container {
+            padding: 10px;
+            width: 100%;
+        }
+        .transaction-source-jenis {
+            font-size: 0.9rem;
+        }
+        .transaction-amount {
+            font-size: 1rem;
+        }
+    }
+    

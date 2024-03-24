@@ -44,6 +44,7 @@
             <div class="Rp">Rp</div>
             <div class="value"><span id="balance">0.00</span></div>
             <canvas id="balanceChart" width="400" height="400"></canvas>
+            <button id="clearLocalStorage" class="btn btn-danger">Clear Data</button>
         </div>
     </div>
     <div class="container1">
@@ -56,16 +57,30 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         $(document).ready(function() {
+
+            if (!localStorage.getItem('balance')) {
+            localStorage.setItem('balance', '0');
+            }
+            if (!localStorage.getItem('transactionHistory')) {
+                localStorage.setItem('transactionHistory', '[]');
+            }
+
             var username = localStorage.getItem('userName');
             $('#user-name').text(username);
 
-            var balance = parseFloat(localStorage.getItem('balance')) || 0;  
-            $('#balance').text(balance.toFixed(2));
+            var balance = parseFloat(localStorage.getItem('balance') || '0');
+            $('#balance').text(formatCurrency(balance));
 
             var transactionHistory = JSON.parse(localStorage.getItem('transactionHistory')) || [];
             displayTransactionHistory(transactionHistory);
 
             updateBalanceChart(balance);
+            $('#clearLocalStorage').click(function() {
+                if (confirm('Are you sure you want to clear all data?')) {
+                    localStorage.clear(); // Menghapus semua data di local storage
+                    location.reload(); // Memuat ulang halaman
+                }
+            });
         });
         function updateBalanceChart(balance) {
             var ctx = document.getElementById('balanceChart').getContext('2d');
@@ -94,12 +109,6 @@
                 }
             });
         }
-        function formatCurrency(angka) {
-            var reverse = angka.toString().split('').reverse().join('');
-            var ribuan = reverse.match(/\d{1,3}/g);
-            ribuan = ribuan.join(',').split('').reverse().join('');
-            return ribuan;
-        }
         function displayTransactionHistory(history) {
             var transactionHistoryDiv = $('.transaction-history');
             transactionHistoryDiv.empty();
@@ -123,6 +132,14 @@
                 });
             }
         }
+
+        function formatCurrency(angka) {
+            var reverse = angka.toString().split('').reverse().join('');
+            var ribuan = reverse.match(/\d{1,3}/g);
+            ribuan = ribuan.join(',').split('').reverse().join('');
+            return ribuan;
+        }
+
     </script>
 </body>
 </html>

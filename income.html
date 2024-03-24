@@ -73,29 +73,17 @@
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-lN6+gHoMlCFi26pbN8Uo4jLFbPPlu8+rnX+5bk62gKJf13Yd9kZVZfGyN47jKgJR" crossorigin="anonymous"></script>
-<script>
 
-      // Fungsi untuk format angka menjadi mata uang rupiah
-      function formatCurrency(angka) {
-        var reverse = angka.toString().split('').reverse().join('');
-        var ribuan = reverse.match(/\d{1,3}/g);
-        ribuan = ribuan.join(',').split('').reverse().join('');
-        return ribuan;
-        }
-    
+<script>
     $(document).ready(function() {
-        // Ambil nama pengguna dari local storage dan tampilkan di navbar
         var username = localStorage.getItem('userName');
         $('#user-name').text(username);
         $('.user-name').text(username);
 
-        // Initialize the Bootstrap navbar
         $('.navbar-toggler').click(function() {
             $('#navbarSupportedContent').toggleClass('show');
         });
 
-        // Tampilkan balance dengan format mata uang rupiah
         var balance = parseFloat(localStorage.getItem('balance'));
         $('#balance').text(formatCurrency(balance));
 
@@ -105,14 +93,14 @@
             var Nama = $('#Nama').val();
             var amount = parseFloat($('#amount').val());
 
-            // Periksa apakah semua bidang telah diisi
+            console.log(jenis, Nama, amount); // Debug input
+            
             if (jenis && Nama && amount) {
-                // Perbarui saldo
+            
                 var balance = parseFloat(localStorage.getItem('balance'));
                 balance += amount;
                 localStorage.setItem('balance', balance.toFixed(0));
 
-                // Buat objek transaksi
                 var transaction = {
                     type: 'income',
                     Nama: Nama,
@@ -120,23 +108,23 @@
                     jenis: jenis
                 };
 
-                // Simpan transaksi ke riwayat transaksi
                 var transactionHistory = JSON.parse(localStorage.getItem('transactionHistory')) || [];
                 transactionHistory.push(transaction);
                 localStorage.setItem('transactionHistory', JSON.stringify(transactionHistory));
 
                 alert('Transaksi sukses!');
-             
-
-                // Alihkan ke halaman utama setelah notifikasi ditampilkan
-                setTimeout(function() {
                     window.location.href = 'main.html';
-                }, ); 
             } else {
-                // Tampilkan notifikasi transaksi belum selesai
+             
                 alert('Transaksi belum selesai, silakan lengkapi formulir!');
             }
         });
+   
+    function formatCurrency(angka) {
+        var reverse = angka.toString().split('').reverse().join('');
+        var ribuan = reverse.match(/\d{1,3}/g);
+        ribuan = ribuan.join(',').split('').reverse().join('');
+        return ribuan;
+        }
     });
-       
 </script>

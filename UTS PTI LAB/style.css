@@ -1,0 +1,22 @@
+.centered-form-control {
+    width: 50%;
+    margin: 0 auto; /* Membuat form control berada di tengah */
+    display: block;
+}
+
+.oval-button {
+    background-color: red; /* Warna background merah */
+    color: white; /* Warna teks putih */
+    border: none; /* Menghilangkan border */
+    border-radius: 20px; /* Membuat tepi menjadi lebih bulat/oval */
+    padding: 10px 20px; /* Padding untuk membuatnya lebih lebar dan tinggi */
+}
+
+.form-control {
+    border-width: 4px;
+    border-color: black;
+    background-color: #f2f2f2;
+    height: 50px;
+    width: 400px;
+}
+
